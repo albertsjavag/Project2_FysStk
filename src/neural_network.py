@@ -58,11 +58,11 @@ class NeuralNetwork:
         return layer_inputs, zs, a
 
     def compute_gradient(self, inputs, targets):
-        layer_input, zs, predict = self._feed_forward_saver(inputs)
+        layer_inputs, zs, predict = self._feed_forward_saver(inputs)
         layer_grads = [() for layer in self.layers]
         n = inputs.shape[0]
         for i in reversed(range(len(self.layers))):
-            layer_inputs, z, activation_der = layer_input[i], zs[i], self.activation_ders[i]
+            layer_input, z, activation_der = layer_inputs[i], zs[i], self.activation_ders[i]
             if i == len(self.layers) - 1:
                 if self.activation_funcs[-1] is softmax:
                     dC_dz = (predict - targets) / n
