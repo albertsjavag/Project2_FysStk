@@ -1,7 +1,9 @@
 import numpy as np
+import jax
 
 from src.data import SEED
 from src.activations import softmax
+from src.optimiser import optimiser_step, make_batches
 
 class NeuralNetwork:
     def __init__(
@@ -50,10 +52,10 @@ class NeuralNetwork:
     def _feed_forward_saver(self, inputs):
         layer_inputs, zs = [], []
         a = inputs
-        for (W, b), actication_func in zip(self.layers, self.activation_funcs):
+        for (W, b), activation_func in zip(self.layers, self.activation_funcs):
             layer_inputs.append(a)
             z = a @ W + b
-            a = actication_func(z)
+            a = activation_func(z)
             zs.append(z)
         return layer_inputs, zs, a
 
@@ -88,16 +90,38 @@ class NeuralNetwork:
         return layer_grads
     
 
-    def update_weights(self, layer_grads):
-        pass
+    def update_weights(self, layer_grads, method="plain", gamma=0.01, t=1):
+        new_layers = []
+        for (W, b), (dW, db), (state_W, state_b) in zip(self.layers, layer_grads, self.opt_states):
+            W, state_W = optimiser_step(method, W, dW, state_W, t, gamma)
+            b, state_b = optimiser_step(method, b, db, state_b, t, gamma)
 
-    def train(self, inputs, targets, method, gamma, epochs, batch_size):
-        ...
+            new_layers.append((W, b))
+        self.layers = new_layers
 
-    # These last two methods are not needed in the project, but they can be nice to have!
-    # The first one has a layers parameter so that you can use jax.grad on it.
-    def jax_compliant_predict(self, layers, inputs):
-        pass
 
-    def jax_gradient(self, inputs, targets):
-        pass
+    def train(self, inputs, targets, method="plain", gamma=0.01, epochs=100, batch_size=32):
+        self.opt_states = [({}, {}) for _ in self.layers]
+        n = inputs.shape[0]
+        t = 0
+        history = []
+        for epoch in range(epochs):
+            for batch in make_batches(n, batch_size, self.rng):
+                t += 1
+                layer_grads = self.compute_gradient(inputs[batch], targets[batch])
+                self.update_weights(layer_grads, method, gamma, t)        
+            history.append(float(self.cost(inputs, targets)))
+        return history
+
+
+    def jax_compliant_predict(self, layers, inputs, activation_funcs):
+        a = inputs
+        for (W, b), activation_func in zip(layers, activation_funcs):
+            a = activation_func(a @ W + b)
+        return a
+    
+    def jax_gradient(self, inputs, targets, jax_activation_funcs):
+        def cost_of_layers(layers):
+            predict = self.jax_compliant_predict(layers, inputs, jax_activation_funcs)
+            return self.cost_fun(predict, targets)
+        return jax.grad(cost_of_layers)(self.layers)
