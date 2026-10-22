@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
+import os
 
 SEED = 2026
 
@@ -54,9 +55,8 @@ def load_mnist():
     back on scikit-learn's fetch_openml, which downloads 70 000 images once.
     """
     here = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-    candidates = [os.path.join(here, "mnist.npz"),
-                    os.path.join(here, "..", "BookPrograms", "chapter10_convolutional_networks", "mnist.npz"),
-                    os.path.join(here, "..", "..", "BookML", "BookPrograms", "chapter10_convolutional_networks", "mnist.npz")]
+    candidates = [os.path.join(here, "..", "mnist.npz"),
+              os.path.join(here, "mnist.npz")]
     for path in candidates:
         if os.path.exists(path):
             d = np.load(path)
