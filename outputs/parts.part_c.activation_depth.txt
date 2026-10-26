@@ -1,0 +1,60 @@
+sigmoid    [5]: train 0.0084, val 0.0127
+sigmoid    [10]: train 0.0087, val 0.0135
+sigmoid    [25]: train 0.0084, val 0.0132
+sigmoid    [50]: train 0.0096, val 0.0147
+sigmoid    [100]: train 0.0088, val 0.0150
+sigmoid    [5, 5]: train 0.0088, val 0.0126
+sigmoid    [10, 10]: train 0.0084, val 0.0121
+sigmoid    [25, 25]: train 0.0086, val 0.0114
+sigmoid    [50, 50]: train 0.0084, val 0.0120
+sigmoid    [100, 100]: train 0.0080, val 0.0118
+sigmoid    [5, 5, 5]: train 0.0083, val 0.0120
+sigmoid    [10, 10, 10]: train 0.0086, val 0.0128
+sigmoid    [25, 25, 25]: train 0.0082, val 0.0116
+sigmoid    [50, 50, 50]: train 0.0085, val 0.0136
+sigmoid    [100, 100, 100]: train 0.0086, val 0.0142
+sigmoid    [5, 5, 5, 5]: train 0.0084, val 0.0121
+sigmoid    [10, 10, 10, 10]: train 0.0086, val 0.0120
+sigmoid    [25, 25, 25, 25]: train 0.0084, val 0.0128
+sigmoid    [50, 50, 50, 50]: train 0.0080, val 0.0126
+sigmoid    [100, 100, 100, 100]: train 0.0078, val 0.0187
+relu       [5]: train 0.0223, val 0.0524
+relu       [10]: train 0.0085, val 0.0183
+relu       [25]: train 0.0081, val 0.0108
+relu       [50]: train 0.0094, val 0.0167
+relu       [100]: train 0.0084, val 0.0098
+relu       [5, 5]: train 0.0078, val 0.0110
+relu       [10, 10]: train 0.0078, val 0.0120
+relu       [25, 25]: train 0.0073, val 0.0114
+relu       [50, 50]: train 0.0064, val 0.0164
+relu       [100, 100]: train 0.0069, val 0.0181
+relu       [5, 5, 5]: train 0.0082, val 0.0120
+relu       [10, 10, 10]: train 0.0080, val 0.0155
+relu       [25, 25, 25]: train 0.0062, val 0.0265
+relu       [50, 50, 50]: train 0.0066, val 0.0195
+relu       [100, 100, 100]: train 0.0061, val 0.0129
+relu       [5, 5, 5, 5]: train 0.0077, val 0.0142
+relu       [10, 10, 10, 10]: train 0.0074, val 0.0145
+relu       [25, 25, 25, 25]: train 0.0064, val 0.0229
+relu       [50, 50, 50, 50]: train 0.0058, val 0.0152
+relu       [100, 100, 100, 100]: train 0.0056, val 0.0166
+leaky_relu [5]: train 0.0223, val 0.0525
+leaky_relu [10]: train 0.0085, val 0.0182
+leaky_relu [25]: train 0.0081, val 0.0117
+leaky_relu [50]: train 0.0093, val 0.0166
+leaky_relu [100]: train 0.0086, val 0.0099
+leaky_relu [5, 5]: train 0.0078, val 0.0109
+leaky_relu [10, 10]: train 0.0079, val 0.0127
+leaky_relu [25, 25]: train 0.0072, val 0.0115
+leaky_relu [50, 50]: train 0.0064, val 0.0176
+leaky_relu [100, 100]: train 0.0067, val 0.0291
+leaky_relu [5, 5, 5]: train 0.0079, val 0.0145
+leaky_relu [10, 10, 10]: train 0.0077, val 0.0145
+leaky_relu [25, 25, 25]: train 0.0061, val 0.0188
+leaky_relu [50, 50, 50]: train 0.0065, val 0.0215
+leaky_relu [100, 100, 100]: train 0.0063, val 0.0159
+leaky_relu [5, 5, 5, 5]: train 0.0074, val 0.0131
+leaky_relu [10, 10, 10, 10]: train 0.0067, val 0.0164
+leaky_relu [25, 25, 25, 25]: train 0.0067, val 0.0135
+leaky_relu [50, 50, 50, 50]: train 0.0061, val 0.0146
+leaky_relu [100, 100, 100, 100]: train 0.0065, val 0.0154
