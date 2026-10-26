@@ -26,6 +26,6 @@ def lasso_fit(X, y, lmbda):
     got this from lecture notes chapter 3. 
     """
     return Lasso(alpha=lmbda / 2.0, fit_intercept=False,
-                 max_iter=100000, tol=1e-10).fit(X, y).coef_
+                 max_iter=10000000, tol=1e-10).fit(X, y).coef_
 
 logreg = NeuralNetwork(784, [10], [softmax], [None], cross_entropy, None)
