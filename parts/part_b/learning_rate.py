@@ -1,10 +1,12 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 
 from src.data import generate_data, split_data
 from src.neural_network import NeuralNetwork
 from src.activations import sigmoid, sigmoid_prime, identity, identity_prime
 from src.costs import mse, mse_der
+from src.plotting import save_fig
 
 x, y, y_true = generate_data(n=100, sigma=0.1)
 x_train, x_test, y_train, y_test = split_data(x, y)
@@ -19,6 +21,8 @@ runs = [("plain GD", "plain", len(x_train)),
         ("RMSprop", "rmsprop", 16),
         ("Adam", "adam", 16)]
 
+fig, ax = plt.subplots()
+
 for label, method, batch_size in runs:
     val_mse = []
     for gamma in gammas:
@@ -28,3 +32,10 @@ for label, method, batch_size in runs:
         print(f"{label:9s} gamma = {gamma:.0e}: validation MSE {val_mse[-1]:.4f}")
     best = np.argmin(val_mse)
     print(f"{label:9s} best gamma = {gammas[best]:.0e}, validation MSE {val_mse[best]:.4f}\n")
+    ax.loglog(gammas, val_mse, "o-", label=label)
+
+ax.set_xlabel(r"Learning rate $\gamma$")
+ax.set_ylabel("Validation MSE")
+ax.set_ylim(top=1)
+ax.legend()
+save_fig(fig, "learning_rate")
