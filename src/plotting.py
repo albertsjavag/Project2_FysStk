@@ -20,5 +20,5 @@ plt.rcParams.update({
 
 def save_fig(fig, name):
     FIG_DIR.mkdir(exist_ok=True)
-    fig.savefig(FIG_DIR / f"{name}.pdf")
+    fig.savefig(FIG_DIR / f"{name}.png")
     plt.close(fig)
