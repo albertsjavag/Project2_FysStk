@@ -1,0 +1,33 @@
+plain GD  gamma = 1e-04: validation MSE 0.1799
+plain GD  gamma = 3e-04: validation MSE 0.1707
+plain GD  gamma = 1e-03: validation MSE 0.1692
+plain GD  gamma = 3e-03: validation MSE 0.1698
+plain GD  gamma = 1e-02: validation MSE 0.1695
+plain GD  gamma = 3e-02: validation MSE 0.1677
+plain GD  gamma = 1e-01: validation MSE 0.0896
+plain GD  gamma = 3e-01: validation MSE 0.1777
+plain GD  gamma = 1e+00: validation MSE 2264.8115
+plain GD  best gamma = 1e-01, validation MSE 0.0896
+
+RMSprop   gamma = 1e-04: validation MSE 0.1620
+RMSprop   gamma = 3e-04: validation MSE 0.1222
+RMSprop   gamma = 1e-03: validation MSE 0.0543
+RMSprop   gamma = 3e-03: validation MSE 0.0166
+RMSprop   gamma = 1e-02: validation MSE 0.0140
+RMSprop   gamma = 3e-02: validation MSE 0.0150
+RMSprop   gamma = 1e-01: validation MSE 0.0187
+RMSprop   gamma = 3e-01: validation MSE 0.0287
+RMSprop   gamma = 1e+00: validation MSE 0.3541
+RMSprop   best gamma = 1e-02, validation MSE 0.0140
+
+Adam      gamma = 1e-04: validation MSE 0.1648
+Adam      gamma = 3e-04: validation MSE 0.1370
+Adam      gamma = 1e-03: validation MSE 0.0536
+Adam      gamma = 3e-03: validation MSE 0.0149
+Adam      gamma = 1e-02: validation MSE 0.0147
+Adam      gamma = 3e-02: validation MSE 0.0146
+Adam      gamma = 1e-01: validation MSE 0.0135
+Adam      gamma = 3e-01: validation MSE 0.0154
+Adam      gamma = 1e+00: validation MSE 0.1262
+Adam      best gamma = 1e-01, validation MSE 0.0135
+
