@@ -2,7 +2,7 @@ import numpy as np
 import jax
 
 from src.data import SEED
-from src.activations import softmax
+from src.activations import softmax, relu, leaky_relu
 from src.optimiser import optimiser_step, make_batches
 
 class NeuralNetwork:
@@ -32,8 +32,11 @@ class NeuralNetwork:
     def _create_layers(self):
         layers = []
         i_size = self.network_input_size                     
-        for layer_output_size in self.layer_output_sizes:
-            scale = np.sqrt(1/i_size)           
+        for layer_output_size, activation_func in zip(self.layer_output_sizes, self.activation_funcs):
+            if activation_func in (relu, leaky_relu):
+                scale = np.sqrt(2/i_size)
+            else:
+                scale = np.sqrt(1/i_size)
             W = self.rng.normal(0.0, scale, (i_size, layer_output_size))
             b = np.zeros(layer_output_size) + 0.01
             layers.append((W, b))
