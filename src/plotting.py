@@ -20,5 +20,5 @@ plt.rcParams.update({
 
 def save_fig(fig, name):
     FIG_DIR.mkdir(exist_ok=True)
-    fig.savefig(FIG_DIR / f"{name}.png")
+    fig.savefig(FIG_DIR / f"{name}.png", dpi=300)
     plt.close(fig)
