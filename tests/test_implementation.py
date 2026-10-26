@@ -74,3 +74,14 @@ def test_train_rejects_1d_targets():
     y = X.ravel() ** 2      
     with pytest.raises(ValueError):
         net.train(X, y, epochs=1)
+
+def test_l2_gradient():                            
+    net = make_runge_net()
+    net.lmbda, net.norm = 0.1, "l2"
+    X = np.linspace(-1, 1, 10).reshape(-1, 1)
+    y = X ** 2
+    mine = net.compute_gradient(X, y)
+    ref = net.jax_gradient(X, y, [jax.nn.sigmoid, jax.nn.sigmoid, lambda z: z])
+    for (dW, db), (dW_j, db_j), (W, b) in zip(mine, ref, net.layers):
+        assert np.allclose(dW, dW_j + 2 * 0.1 * W)       
+        assert np.allclose(db, db_j)
