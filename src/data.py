@@ -47,7 +47,7 @@ def split_data(x, y, test_size=0.2, seed=SEED):
 """ ALL above is runge data from project 1."""
 
 
-def load_fasion_mnist():
+def load_fashion_mnist():
     """The 70 000 MNIST images as (X_train, y_train, X_test, y_test), pixels scaled to [0, 1], 784 columns.
         Downloads 70 000 images once from OpenML by scikit-learn.
     """
