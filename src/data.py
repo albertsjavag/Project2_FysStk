@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
-import os
 
 SEED = 2026
 
@@ -48,23 +47,12 @@ def split_data(x, y, test_size=0.2, seed=SEED):
 """ ALL above is runge data from project 1."""
 
 
-def load_mnist():
+def load_fasion_mnist():
     """The 70 000 MNIST images as (X_train, y_train, X_test, y_test), pixels scaled to [0, 1], 784 columns.
-
-    Looks for the repository's mnist.npz first (no download needed) and falls
-    back on scikit-learn's fetch_openml, which downloads 70 000 images once.
+        Downloads 70 000 images once from OpenML by scikit-learn.
     """
-    here = os.path.dirname(os.path.abspath(__file__)) if "__file__" in globals() else os.getcwd()
-    candidates = [os.path.join(here, "..", "mnist.npz"),
-              os.path.join(here, "mnist.npz")]
-    for path in candidates:
-        if os.path.exists(path):
-            d = np.load(path)
-            X_train = d["x_train"].reshape(len(d["x_train"]), -1).astype(float) / 255.0
-            X_test = d["x_test"].reshape(len(d["x_test"]), -1).astype(float) / 255.0
-            return X_train, d["y_train"].astype(int), X_test, d["y_test"].astype(int)
     from sklearn.datasets import fetch_openml
-    mnist = fetch_openml("mnist_784", version=1, as_frame=False)
+    mnist = fetch_openml("Fashion-MNIST", version=1, as_frame=False)
     X = mnist.data.astype(float) / 255.0
     y = mnist.target.astype(int)
     return X[:60000], y[:60000], X[60000:], y[60000:]
