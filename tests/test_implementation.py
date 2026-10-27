@@ -5,8 +5,8 @@ import pytest
 
 
 from src.neural_network import NeuralNetwork
-from src.activations import sigmoid, sigmoid_prime, identity, identity_prime
-from src.costs import mse, mse_der
+from src.activations import sigmoid, sigmoid_prime, identity, identity_prime, softmax
+from src.costs import mse, mse_der, cross_entropy
 
 
 def make_runge_net():
@@ -83,5 +83,18 @@ def test_l2_gradient():
     mine = net.compute_gradient(X, y)
     ref = net.jax_gradient(X, y, [jax.nn.sigmoid, jax.nn.sigmoid, lambda z: z])
     for (dW, db), (dW_j, db_j), (W, b) in zip(mine, ref, net.layers):
-        assert np.allclose(dW, dW_j + 2 * 0.1 * W)       
+        assert np.allclose(dW, dW_j + 2 * 0.1 * W)
+        assert np.allclose(db, db_j)
+
+
+def test_softmax_matches_jax():
+    """The shortcut delta^L = (a - y)/n for softmax + cross entropy, as in week 42 cell 59."""
+    net = NeuralNetwork(4, [5, 3], [sigmoid, softmax], [sigmoid_prime, None], cross_entropy, None)
+    rng = np.random.default_rng(2026)
+    X = rng.normal(size=(6, 4))
+    Y = np.eye(3)[rng.integers(0, 3, size=6)]
+    mine = net.compute_gradient(X, Y)
+    ref = net.jax_gradient(X, Y, [jax.nn.sigmoid, jax.nn.softmax])
+    for (dW, db), (dW_j, db_j) in zip(mine, ref):
+        assert np.allclose(dW, dW_j)
         assert np.allclose(db, db_j)
