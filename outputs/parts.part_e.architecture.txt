@@ -1,0 +1,37 @@
+sigmoid    [25]: train accuracy 0.8908, val accuracy 0.8770
+sigmoid    [50]: train accuracy 0.9041, val accuracy 0.8848
+sigmoid    [100]: train accuracy 0.9117, val accuracy 0.8910
+sigmoid    [200]: train accuracy 0.9156, val accuracy 0.8962
+sigmoid    [25, 25]: train accuracy 0.8869, val accuracy 0.8739
+sigmoid    [50, 50]: train accuracy 0.9026, val accuracy 0.8834
+sigmoid    [100, 100]: train accuracy 0.9051, val accuracy 0.8877
+sigmoid    [200, 200]: train accuracy 0.9177, val accuracy 0.8949
+sigmoid    [25, 25, 25]: train accuracy 0.8905, val accuracy 0.8768
+sigmoid    [50, 50, 50]: train accuracy 0.9018, val accuracy 0.8866
+sigmoid    [100, 100, 100]: train accuracy 0.8983, val accuracy 0.8817
+sigmoid    [200, 200, 200]: train accuracy 0.9100, val accuracy 0.8932
+relu       [25]: train accuracy 0.8922, val accuracy 0.8778
+relu       [50]: train accuracy 0.8961, val accuracy 0.8800
+relu       [100]: train accuracy 0.9096, val accuracy 0.8902
+relu       [200]: train accuracy 0.9114, val accuracy 0.8890
+relu       [25, 25]: train accuracy 0.8902, val accuracy 0.8753
+relu       [50, 50]: train accuracy 0.8995, val accuracy 0.8798
+relu       [100, 100]: train accuracy 0.9122, val accuracy 0.8936
+relu       [200, 200]: train accuracy 0.9116, val accuracy 0.8898
+relu       [25, 25, 25]: train accuracy 0.8901, val accuracy 0.8743
+relu       [50, 50, 50]: train accuracy 0.9006, val accuracy 0.8820
+relu       [100, 100, 100]: train accuracy 0.9066, val accuracy 0.8878
+relu       [200, 200, 200]: train accuracy 0.9109, val accuracy 0.8936
+leaky_relu [25]: train accuracy 0.8902, val accuracy 0.8777
+leaky_relu [50]: train accuracy 0.8935, val accuracy 0.8768
+leaky_relu [100]: train accuracy 0.9050, val accuracy 0.8872
+leaky_relu [200]: train accuracy 0.9128, val accuracy 0.8916
+leaky_relu [25, 25]: train accuracy 0.8858, val accuracy 0.8705
+leaky_relu [50, 50]: train accuracy 0.9044, val accuracy 0.8822
+leaky_relu [100, 100]: train accuracy 0.9097, val accuracy 0.8881
+leaky_relu [200, 200]: train accuracy 0.9054, val accuracy 0.8852
+leaky_relu [25, 25, 25]: train accuracy 0.8867, val accuracy 0.8728
+leaky_relu [50, 50, 50]: train accuracy 0.8989, val accuracy 0.8813
+leaky_relu [100, 100, 100]: train accuracy 0.9039, val accuracy 0.8852
+leaky_relu [200, 200, 200]: train accuracy 0.9037, val accuracy 0.8855
+best activation sigmoid, layers 1, nodes 200, validation accuracy 0.8962
