@@ -40,7 +40,7 @@ for name, ax in zip(["sigmoid", "relu", "leaky_relu"], axes):
                 best_layers = layers
                 best_activation = name
             print(f"{name:10s} {hidden}: train accuracy {train_acc:.4f}, val accuracy {val_grid[i, j]:.4f}")
-    sns.heatmap(val_grid, ax=ax, annot=True, fmt=".3f", xticklabels=node_list, yticklabels=layer_list, vmin=0.8, vmax=0.9,
+    sns.heatmap(val_grid, ax=ax, annot=True, fmt=".3f", xticklabels=node_list, yticklabels=layer_list, vmin=0.87, vmax=0.9,
                 annot_kws={"size": 7}, cbar=(ax is axes[-1]))
     ax.set_title(name)
     ax.set_xlabel("Nodes per layer")
