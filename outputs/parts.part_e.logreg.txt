@@ -1,0 +1,10 @@
+gamma: 1e-04, validation accuracy 0.8197, training accuracy 0.8258
+cost per epoch: [1.015 0.809 0.716 0.661 0.622 0.594 0.573 0.555 0.543 0.529]
+gamma: 1e-03, validation accuracy 0.8517, training accuracy 0.8596
+cost per epoch: [0.557 0.485 0.461 0.443 0.43  0.421 0.418 0.407 0.402 0.406]
+gamma: 1e-02, validation accuracy 0.8409, training accuracy 0.8593
+cost per epoch: [0.486 0.488 0.517 0.41  0.406 0.396 0.412 0.461 0.463 0.402]
+gamma: 1e-01, validation accuracy 0.7927, training accuracy 0.8041
+cost per epoch: [1.415 1.435 1.192 1.689 1.256 1.212 1.221 1.506 1.188 1.941]
+ 
+best gamma 1e-03, validation accuracy 0.8517
