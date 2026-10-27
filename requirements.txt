@@ -3,3 +3,4 @@ numpy
 matplotlib
 jax
 scikit-learn
+seaborn
