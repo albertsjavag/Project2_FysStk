@@ -1,0 +1,4 @@
+Own logreg:     test accuracy 0.8437, time 19.0797 s
+Own sigmoid [200]:     test accuracy 0.8752, time 37.6041 s
+sklearn logreg:     test accuracy 0.8442, time 632.2621 s
+sklearn MLPClassifier:     test accuracy 0.8833, time 38.2652 s
