@@ -58,3 +58,19 @@ for ax, title, y_pred in zip(axes, ["Logistic regression", "Sigmoid [200]"],
 axes[1].set_ylabel("")
 axes[1].set_yticklabels([])
 save_fig(fig, "fashion_confusion")
+
+
+n_show = 8
+probs = net.predict(X_test)
+pred = y_pred_nn 
+wrong = np.where(pred != y_test)[0]
+fig, axes = plt.subplots(2, n_show // 2, figsize=(3.4, 2.3))
+for ax, k in zip(axes.ravel(), wrong[:n_show]):
+    ax.imshow(X_test[k].reshape(28, 28), cmap="gray_r")
+    ax.set_title(f"{class_names[y_test[k]]} → {class_names[pred[k]]}\n{probs[k, pred[k]]:.0%}",
+                 fontsize=5.5, pad=2)
+    ax.axis("off")
+fig.suptitle(f"{len(wrong)} of the 10 000 test images are misclassified: "
+             f"the first {n_show}", fontsize=7)
+
+save_fig(fig, "fashion_misclassified")
