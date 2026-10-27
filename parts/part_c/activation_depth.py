@@ -21,7 +21,7 @@ y_train_nn = y_train.reshape(-1, 1)
 layer_list = [1, 2, 3, 4]
 node_list = [5, 10, 25, 50, 100]
 
-fig, axes = plt.subplots(1, 3, figsize=(10, 3), sharey=True)
+fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.4), sharey=True)
 
 for name, ax in zip(["sigmoid", "relu", "leaky_relu"], axes):
     f, f_der = ACTIVATIONS[name]
@@ -37,7 +37,8 @@ for name, ax in zip(["sigmoid", "relu", "leaky_relu"], axes):
             train_mse = mean_squared_error(y_train, net.predict(X_train_nn).ravel())
             val_grid[i, j] = mean_squared_error(y_val, net.predict(X_val_nn).ravel())
             print(f"{name:10s} {hidden}: train {train_mse:.4f}, val {val_grid[i, j]:.4f}")
-    sns.heatmap(val_grid, ax=ax, annot=True, xticklabels=node_list, yticklabels=layer_list, vmin=0.01, vmax=0.03)
+    sns.heatmap(val_grid, ax=ax, annot=True, xticklabels=node_list, yticklabels=layer_list, vmin=0.01, vmax=0.03,
+                annot_kws={"size": 7}, cbar=(ax is axes[-1]))
     ax.set_title(name)
     ax.set_xlabel("Nodes per layer")
 

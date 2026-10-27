@@ -24,7 +24,7 @@ y_train_nn = y_tr.reshape(-1, 1)
 gammas = np.logspace(-3, -1, 5)
 lmbdas = np.logspace(-8, 0, 9)
 
-fig, axes = plt.subplots(1, 2,  figsize=(10, 3), sharey=True)
+fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.6), sharey=True)
 
 lmbda_ridge = 6.9e-9
 lmbda_lasso = 2.9e-5
@@ -61,7 +61,10 @@ for norm, ax in zip(["l2", "l1"], axes):
                 best_lambda = lmbda
             print(f"{norm:10s} gamma {gamma:.0e}, lambda {lmbda:.0e}: train {train_mse:.4f}, val {val_grid[i, j]:.4f}")
     sns.heatmap(val_grid, ax=ax, annot=True, xticklabels=[f"{l:.0e}" for l in lmbdas],
-                yticklabels=[f"{g:.0e}" for g in gammas], norm=LogNorm(vmin=0.01, vmax=0.2))
+                yticklabels=[f"{g:.0e}" for g in gammas], norm=LogNorm(vmin=0.01, vmax=0.2),
+                annot_kws={"size": 5.5}, cbar=(ax is axes[-1]))
+    ax.tick_params(axis="x", labelrotation=45)
+    ax.tick_params(axis="y", labelrotation=0)
     ax.set_title(norm)
     ax.set_xlabel(r"$\lambda$")
     best[norm] = (best_gamma, best_lambda)
