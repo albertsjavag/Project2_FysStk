@@ -5,12 +5,6 @@ Exact copy of our Project 1 models.py file, just added logreg.
 import numpy as np
 from sklearn.linear_model import Lasso
 
-from src.neural_network import NeuralNetwork
-from src.activations import softmax
-from src.costs import cross_entropy
-
-
-
 def ols(X, y):
     return np.linalg.pinv(X) @ y
 
