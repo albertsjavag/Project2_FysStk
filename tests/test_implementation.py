@@ -29,6 +29,7 @@ def make_runge_net():
 
 
 def test_layer_shapes():
+    """W and b in each layer have the shapes given by the layer sizes."""
     net = NeuralNetwork(1, [50, 50, 1],
                         [sigmoid, sigmoid, identity],
                         [sigmoid_prime, sigmoid_prime, identity_prime],
@@ -38,12 +39,14 @@ def test_layer_shapes():
 
 
 def test_predict_shape():
+    """predict returns one output per input row."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
     assert net.predict(X).shape == (10, 1)
 
 
 def test_saver_matches_predict():
+    """_feed_forward_saver gives the same output as predict and saves all three layers."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
     layer_inputs, zs, a = net._feed_forward_saver(X)
@@ -52,6 +55,7 @@ def test_saver_matches_predict():
 
 
 def test_gradient_shapes():
+    """Each gradient has the same shape as its weight or bias."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
     grads = net.compute_gradient(X, X ** 2)
@@ -61,6 +65,7 @@ def test_gradient_shapes():
 
 
 def test_backprop_matches_jax():
+    """Our backpropagation gives the same gradients as jax.grad."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
     y = X ** 2
@@ -72,6 +77,7 @@ def test_backprop_matches_jax():
 
 
 def test_training_lowers_cost():
+    """Training with Adam lowers the cost on the Runge data."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 100).reshape(-1, 1)
     y = 1 / (1 + 25 * X ** 2)
@@ -79,6 +85,7 @@ def test_training_lowers_cost():
     assert history[-1] < history[0]
 
 def test_train_rejects_1d_targets():
+    """train raises a ValueError for 1D targets."""
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
     y = X.ravel() ** 2      
@@ -86,6 +93,7 @@ def test_train_rejects_1d_targets():
         net.train(X, y, epochs=1)
 
 def test_l2_gradient():                            
+    """With L2, the gradient equals the jax.grad gradient plus 2*lambda*W."""
     net = make_runge_net()
     net.lmbda, net.norm = 0.1, "l2"
     X = np.linspace(-1, 1, 10).reshape(-1, 1)
