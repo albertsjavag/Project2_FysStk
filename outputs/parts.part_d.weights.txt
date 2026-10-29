@@ -1,0 +1,3 @@
+no penalty: share of |w| < 1e-3: 0.01
+L2: share of |w| < 1e-3: 0.00
+L1: share of |w| < 1e-3: 0.35
