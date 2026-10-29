@@ -1,3 +1,15 @@
+"""
+Validation MSE over learning rate and lambda for L1 and L2 penalties, compared with Ridge and Lasso.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 1 - Debugging
+Role: Written by us from a recipe from Claude. Claude fixed bugs and suggested LogNorm
+for the heat map.
+
+Verification: Ran the script; Ridge and Lasso MSE match project 1.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns

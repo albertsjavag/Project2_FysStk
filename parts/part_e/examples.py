@@ -1,4 +1,14 @@
+"""
+Plots one example image per Fashion-MNIST class.
 
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 1 - Debugging
+Role: Written by us. Claude suggested np.where and ax.axis("off").
+
+Verification: Checked the labels against the images in figures/fashion_examples.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 

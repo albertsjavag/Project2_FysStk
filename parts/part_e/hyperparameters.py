@@ -1,3 +1,14 @@
+"""
+Validation accuracy over learning rate and lambda for the Fashion-MNIST network.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Copied by us from norms.py. Claude converted it from regression to classification.
+
+Verification: Ran the script and checked the printout against figures/fashion_gamma_lambda.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns

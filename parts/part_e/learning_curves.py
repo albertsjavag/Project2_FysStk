@@ -1,3 +1,14 @@
+"""
+Training cost per epoch for logistic regression and the best network.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Data and network by us. Claude wrote the training with cost history and the plot.
+
+Verification: Ran the script and checked figures/fashion_learning_curves.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 

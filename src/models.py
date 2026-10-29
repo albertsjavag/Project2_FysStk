@@ -1,5 +1,13 @@
 """
-Exact copy of our Project 1 models.py file, just added logreg. 
+Exact copy of our Project 1 models.py file, just added logreg.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 1 - Debugging
+Role: Claude found that lasso_fit did not converge and raised max_iter.
+
+Verification: Lasso now converges at degree 12 without warnings.
 """
 
 import numpy as np

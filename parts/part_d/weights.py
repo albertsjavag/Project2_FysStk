@@ -1,3 +1,15 @@
+"""
+Weight distributions with no penalty, L1 and L2.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Training loop and plot by us. Claude wrote the list of runs, the weight collection
+and the share of weights below 1e-3.
+
+Verification: Ran the script; L1 gives the largest share of small weights, as expected.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 

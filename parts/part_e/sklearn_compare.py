@@ -1,3 +1,14 @@
+"""
+Compares our models with scikit-learn on test accuracy and time.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 1 - Debugging
+Role: Written by us. Claude found bugs.
+
+Verification: Ran the script; our accuracies match best_model.py.
+"""
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier

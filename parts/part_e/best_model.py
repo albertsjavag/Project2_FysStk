@@ -2,6 +2,15 @@
 From architecture.py: best activation sigmoid, layers 1, nodes 200, validation accuracy 0.8962
 From hyperparameters.py:  best gamma 3e-03, lambda 1e-06, validation accuracy 0.8893
 From logreg.py: best gamma 1e-03, validation accuracy 0.8517
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Written by us. Claude found bugs, wrote the test accuracy loop and the confusion
+matrix figure.
+
+Verification: Ran the script and checked the confusion matrix against the classification report.
 """
 import numpy as np
 import matplotlib.pyplot as plt

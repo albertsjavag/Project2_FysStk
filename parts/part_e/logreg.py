@@ -1,3 +1,15 @@
+"""
+Logistic regression on Fashion-MNIST, tuning the learning rate.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Written by us. Claude explained the accuracy line, suggested epochs and batch size,
+showed how to track the best gamma and found bugs.
+
+Verification: Ran the script and checked that the cost decreases per epoch.
+"""
 import numpy as np
 
 from src.data import load_fashion_mnist, split_data

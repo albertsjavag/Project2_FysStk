@@ -1,3 +1,14 @@
+"""
+Validation accuracy for different activations, layers and nodes on Fashion-MNIST.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 1 - Debugging
+Role: Copied by us from activation_depth.py. Claude found bugs.
+
+Verification: Ran the script and checked the printout against figures/Fashion_architecture.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns

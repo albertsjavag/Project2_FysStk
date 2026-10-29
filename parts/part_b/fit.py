@@ -1,3 +1,15 @@
+"""
+OLS and a [5] sigmoid network fitted to the Runge function, with the five hidden-node terms.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Data, OLS and network by us. Claude suggested the decomposition into hidden-node
+terms, fixed bugs and wrote the two-panel plot.
+
+Verification: Ran the script; the sum of the terms equals the prediction (np.allclose prints True).
+"""
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import numpy as np

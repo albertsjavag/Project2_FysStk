@@ -1,3 +1,15 @@
+"""
+Validation MSE against learning rate for plain GD and the adaptive optimisers.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 3 - Skeleton
+Role: First version by Claude, built on our nn_vs_ols.py and project 1 sgd_methods.py,
+including the plot.
+
+Verification: Ran the script and checked the MSE values and figures/learning_rate.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error

@@ -1,3 +1,14 @@
+"""
+Tests of the network against jax.grad and basic sanity checks.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 4 - Substantial
+Role: Tests proposed and written by Claude.
+
+Verification: Ran pytest; all tests pass.
+"""
 import numpy as np
 import jax
 jax.config.update("jax_enable_x64", True)       # 64-bit, ellers avviker jax med ~1e-7
@@ -67,7 +78,6 @@ def test_training_lowers_cost():
     history = net.train(X, y, method="adam", gamma=0.01, epochs=50, batch_size=16)
     assert history[-1] < history[0]
 
-"MULIG Å FJERNE SENERE KANSKJE. "
 def test_train_rejects_1d_targets():
     net = make_runge_net()
     X = np.linspace(-1, 1, 10).reshape(-1, 1)

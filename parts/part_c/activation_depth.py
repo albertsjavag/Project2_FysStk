@@ -1,3 +1,15 @@
+"""
+Validation MSE for different activations, layers and nodes on the Runge data.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Loops by us. Claude added the validation split, the MSE grid, the printout
+and the heat maps.
+
+Verification: Ran the script and checked the printout against figures/activation_depth.png.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns

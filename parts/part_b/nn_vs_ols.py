@@ -1,3 +1,15 @@
+"""
+Test MSE of OLS (degree 12) and four network architectures on the Runge data.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Data and first network by us. Claude added the scaling and centring for OLS
+and wrote the loop over the four architectures.
+
+Verification: Ran the script; OLS MSE matches project 1.
+"""
 from sklearn.metrics import mean_squared_error
 
 from src.data import generate_data, design_matrix, scale_matrix, center_y, split_data
