@@ -6,6 +6,19 @@ from src.activations import softmax, relu, leaky_relu
 from src.optimiser import optimiser_step, make_batches
 
 class NeuralNetwork:
+    """Feed-forward network trained by backpropagation, with optional L1/L2 penalty.
+
+    LLM-assisted:
+    (Claude, Opus 5.5, October 2026), level 3 
+    written by us from the week 42 template. Claude gave a skeleton 
+    for _create_layers, proposed update_weights, train and the JAX methods, 
+    and helped find bugs.
+
+    Verified by tests/test_implementation.py: gradients agree with jax.grad for MSE,
+    MSE with L2, and softmax with cross entropy. Fashion-MNIST accuracy is within
+    one percentage point of scikit-learn's MLPClassifier (sklearn_compare.py).
+    """
+
     def __init__(
         self,
         network_input_size,
