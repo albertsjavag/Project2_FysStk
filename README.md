@@ -62,7 +62,7 @@ All random numbers use the seed 2026.
 | **Part c: activation functions and depth** | | |
 | `parts/part_c/activation_depth.py` | Validation MSE for sigmoid, ReLU and leaky ReLU against the number of layers and nodes | `activation_depth.png` |
 | **Part d: L1 and L2 penalties** | | |
-| `parts/part_d/norms.py` | Validation MSE against learning rate and penalty for L2 and L1, and test MSE against Ridge and Lasso from project 1 | `norms.png` |
+| `parts/part_d/cv_norms.py` | 5-fold cross-validated MSE against learning rate and penalty for L2 and L1, the one-standard-error choice, and test MSE against Ridge and Lasso from project 1 | `cv_norms.png` |
 | `parts/part_d/weights.py` | The weights of the network sorted by size, without penalty and with L2 and L1 | `weights_l1_l2.png` |
 | **Part e: classification of Fashion-MNIST** | | |
 | `parts/part_e/examples.py` | One training image of each class | `fashion_examples.png` |
