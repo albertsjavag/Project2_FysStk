@@ -1,3 +1,16 @@
+"""
+5-fold cross-validation over learning rate and lambda for L1 and L2 penalties,
+with the one-standard-error rule and a comparison with Ridge and Lasso.
+
+LLM-assisted
+------------
+Tool: Claude, Opus 5.5 (Anthropic, October 2026)
+Level: 2 - Snippet
+Role: Assembled by Claude from our week 44 exercises (scikit-learn wrapper,
+GridSearchCV, standard errors, one-standard-error rule) and our earlier norms.py.
+
+Verification: Ran the script; Ridge and Lasso test MSE match the earlier norms.py.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
