@@ -1,0 +1,4 @@
+l2: minimum gamma 0.003, lambda 1e-05: CV MSE 0.0111 +/- 0.0010; one-s.e. rule gamma 0.003, lambda 1e-05; test MSE 0.0073
+l1: minimum gamma 0.003, lambda 1e-05: CV MSE 0.0111 +/- 0.0010; one-s.e. rule gamma 0.01, lambda 0.0001; test MSE 0.0074
+Ridge (degree 12, lambda 6.9e-09): test MSE 0.0061
+Lasso (degree 12, lambda 2.9e-05): test MSE 0.0093
