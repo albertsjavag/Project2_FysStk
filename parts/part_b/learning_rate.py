@@ -29,13 +29,13 @@ X_val_nn = x_val.reshape(-1, 1)
 y_train_nn = y_train.reshape(-1, 1)
 
 gammas = np.logspace(-4, 0, 9)
-runs = [("plain GD", "plain", len(x_train)),
-        ("RMSprop", "rmsprop", 16),
-        ("Adam", "adam", 16)]
+runs = [("plain GD", "plain", len(x_train), "Plain GD (full batch)", "#004488"),
+        ("RMSprop", "rmsprop", 16, "RMSprop (batch 16)", "#DDAA33"),
+        ("Adam", "adam", 16, "Adam (batch 16)", "#BB5566")]
 
 fig, ax = plt.subplots()
 
-for label, method, batch_size in runs:
+for label, method, batch_size, legend, color in runs:
     val_mse = []
     for gamma in gammas:
         net = NeuralNetwork(1, [50, 1], [sigmoid, identity], [sigmoid_prime, identity_prime], mse, mse_der)
@@ -44,10 +44,10 @@ for label, method, batch_size in runs:
         print(f"{label:9s} gamma = {gamma:.0e}: validation MSE {val_mse[-1]:.4f}")
     best = np.argmin(val_mse)
     print(f"{label:9s} best gamma = {gammas[best]:.0e}, validation MSE {val_mse[best]:.4f}\n")
-    ax.loglog(gammas, val_mse, "o-", label=label)
+    ax.loglog(gammas, val_mse, "o-", color=color, label=legend)
 
 ax.set_xlabel(r"Learning rate $\gamma$")
 ax.set_ylabel("Validation MSE")
 ax.set_ylim(top=1)
-ax.legend()
+ax.legend(frameon=False)
 save_fig(fig, "learning_rate")

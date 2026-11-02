@@ -64,8 +64,8 @@ cv = KFold(n_splits=5, shuffle=True, random_state=2026)
 gammas = [0.001, 0.003, 0.01, 0.03, 0.1]
 lmbdas = [0.0, 1e-5, 1e-4, 1e-3, 1e-2]
 
-fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.6), sharey=True)
-for norm, ax in zip(["l2", "l1"], axes):
+fig, axes = plt.subplots(2, 1, figsize=(3.4, 4.2), sharex=True)
+for norm, ax, title in zip(["l2", "l1"], axes, [r"$L_2$ penalty", r"$L_1$ penalty"]):
     net = make_pipeline(StandardScaler(), NeuralNetRegressor(norm=norm))
     param_grid = {"neuralnetregressor__gamma": gammas, "neuralnetregressor__lmbd": lmbdas}
     search = GridSearchCV(net, param_grid, cv=cv, scoring="neg_mean_squared_error")
@@ -81,15 +81,20 @@ for norm, ax in zip(["l2", "l1"], axes):
           f"test MSE {test_mse:.4f}")
 
     sns.heatmap(cv_mse, ax=ax, annot=True, fmt=".3f", annot_kws={"size": 6},
-                xticklabels=[f"{l:g}" for l in lmbdas], yticklabels=[f"{g:g}" for g in gammas],
-                norm=LogNorm(vmin=0.01, vmax=0.2), cbar=(ax is axes[-1]))
+                xticklabels=["0", "$10^{-5}$", "$10^{-4}$", "$10^{-3}$", "$10^{-2}$"],
+                yticklabels=[f"{g:g}" for g in gammas],
+                norm=LogNorm(vmin=0.01, vmax=0.2), cbar=False)
     for i, j in zip(*np.where(within)):
-        ax.add_patch(plt.Rectangle((j, i), 1, 1, fill=False, ec="white", lw=1.2))
-    ax.plot(i_best[1] + 0.5, i_best[0] + 0.5, "o", mfc="none", mec="cyan", mew=1.5, ms=14)
-    ax.set_title(norm.upper())
-    ax.set_xlabel(r"$\lambda$")
+        ax.add_patch(plt.Rectangle((j, i), 1, 1, fill=False, ec="white", lw=1.0))
+    ax.add_patch(plt.Rectangle((i_best[1], i_best[0]), 1, 1, fill=False, ec="cyan", lw=1.6))
+    ax.set_title(title, fontsize=9)
+    ax.set_ylabel(r"Learning rate $\gamma$")
+    ax.tick_params(length=0)
     ax.tick_params(axis="y", labelrotation=0)
-axes[0].set_ylabel(r"$\gamma$")
+axes[-1].set_xlabel(r"Penalty $\lambda$")
+cbar = fig.colorbar(axes[0].collections[0], ax=axes, shrink=0.5, label="5-fold CV MSE")
+cbar.set_ticks([0.01, 0.03, 0.1, 0.2], labels=["0.01", "0.03", "0.1", "0.2"])
+cbar.ax.minorticks_off()
 save_fig(fig, "cv_norms")
 
 y_train_c, y_mean = center_y(y_train)

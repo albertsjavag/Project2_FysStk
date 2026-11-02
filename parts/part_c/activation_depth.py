@@ -13,6 +13,7 @@ Verification: Ran the script and checked the printout against figures/activation
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib.colors import LogNorm
 from sklearn.metrics import mean_squared_error
 
 from src.neural_network import NeuralNetwork
@@ -33,7 +34,8 @@ y_train_nn = y_train.reshape(-1, 1)
 layer_list = [1, 2, 3, 4]
 node_list = [5, 10, 25, 50, 100]
 
-fig, axes = plt.subplots(1, 3, figsize=(7.0, 2.4), sharey=True)
+fig, axes = plt.subplots(3, 1, figsize=(3.4, 5.0), sharex=True)
+titles = {"sigmoid": "Sigmoid", "relu": "ReLU", "leaky_relu": "Leaky ReLU"}
 
 for name, ax in zip(["sigmoid", "relu", "leaky_relu"], axes):
     f, f_der = ACTIVATIONS[name]
@@ -49,10 +51,17 @@ for name, ax in zip(["sigmoid", "relu", "leaky_relu"], axes):
             train_mse = mean_squared_error(y_train, net.predict(X_train_nn).ravel())
             val_grid[i, j] = mean_squared_error(y_val, net.predict(X_val_nn).ravel())
             print(f"{name:10s} {hidden}: train {train_mse:.4f}, val {val_grid[i, j]:.4f}")
-    sns.heatmap(val_grid, ax=ax, annot=True, xticklabels=node_list, yticklabels=layer_list, vmin=0.01, vmax=0.03,
-                annot_kws={"size": 7}, cbar=(ax is axes[-1]))
-    ax.set_title(name)
-    ax.set_xlabel("Nodes per layer")
+    sns.heatmap(val_grid, ax=ax, annot=True, fmt=".4f", xticklabels=node_list, yticklabels=layer_list,
+                norm=LogNorm(vmin=0.0095, vmax=0.055), annot_kws={"size": 6}, cbar=False)
+    i_best, j_best = np.unravel_index(np.argmin(val_grid), val_grid.shape)
+    ax.add_patch(plt.Rectangle((j_best, i_best), 1, 1, fill=False, ec="cyan", lw=1.6))
+    ax.set_title(titles[name], fontsize=9)
+    ax.set_ylabel("Hidden layers")
+    ax.tick_params(length=0)
+    ax.tick_params(axis="y", labelrotation=0)
 
-axes[0].set_ylabel("Hidden layers")
+axes[-1].set_xlabel("Nodes per layer")
+cbar = fig.colorbar(axes[0].collections[0], ax=axes, shrink=0.5, label="Validation MSE")
+cbar.set_ticks([0.01, 0.02, 0.03, 0.05], labels=["0.01", "0.02", "0.03", "0.05"])
+cbar.ax.minorticks_off()
 save_fig(fig, "activation_depth")

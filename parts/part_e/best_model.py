@@ -14,7 +14,7 @@ Verification: Ran the script and checked the confusion matrix against the classi
 """
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, classification_report, ConfusionMatrixDisplay
+from sklearn.metrics import confusion_matrix, classification_report
 
 from src.neural_network import NeuralNetwork
 from src.plotting import save_fig
@@ -55,17 +55,22 @@ print("Report for logistic regression:")
 print(confusion_matrix(y_test, y_pred_logreg))
 print(classification_report(y_test, y_pred_logreg, target_names=class_names))
 
-fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.8))
-for ax, title, y_pred in zip(axes, ["Logistic regression", "Sigmoid [200]"],
-                             [y_pred_logreg, y_pred_nn]):
-    ConfusionMatrixDisplay.from_predictions(y_test, y_pred, normalize="true",
-                                            display_labels=class_names, ax=ax,
-                                            colorbar=False, values_format=".2f",
-                                            xticks_rotation=45, text_kw={"fontsize": 5})
-    ax.set_title(title)
-    plt.setp(ax.get_xticklabels(), ha="right", rotation_mode="anchor")
-axes[1].set_ylabel("")
-axes[1].set_yticklabels([])
+# Network only; logistic regression is compared per class in the classification report
+short_names = ["T-shirt", "Trouser", "Pullover", "Dress", "Coat",
+               "Sandal", "Shirt", "Sneaker", "Bag", "Boot"]
+cm = confusion_matrix(y_test, y_pred_nn, normalize="true")
+fig, ax = plt.subplots(figsize=(3.4, 3.0))
+im = ax.imshow(cm, cmap="Blues", vmin=0, vmax=1)
+for i in range(10):
+    for j in range(10):
+        if i == j or cm[i, j] >= 0.05:              # only the diagonal and confusions of 5 % or more
+            ax.text(j, i, f"{cm[i, j] * 100:.0f}", ha="center", va="center", fontsize=6,
+                    color="white" if cm[i, j] > 0.5 else "black")
+ax.set_xticks(range(10), short_names, rotation=90)
+ax.set_yticks(range(10), short_names)
+ax.set_xlabel("Predicted class")
+ax.set_ylabel("True class")
+fig.colorbar(im, ax=ax, shrink=0.8, label="Share of the true class")
 save_fig(fig, "fashion_confusion")
 
 
@@ -77,9 +82,7 @@ fig, axes = plt.subplots(2, n_show // 2, figsize=(3.4, 2.3))
 for ax, k in zip(axes.ravel(), wrong[:n_show]):
     ax.imshow(X_test[k].reshape(28, 28), cmap="gray_r")
     ax.set_title(f"{class_names[y_test[k]]} → {class_names[pred[k]]}\n{probs[k, pred[k]]:.0%}",
-                 fontsize=5.5, pad=2)
+                 fontsize=6, pad=2)
     ax.axis("off")
-fig.suptitle(f"{len(wrong)} of the 10 000 test images are misclassified: "
-             f"the first {n_show}", fontsize=7)
 
 save_fig(fig, "fashion_misclassified")

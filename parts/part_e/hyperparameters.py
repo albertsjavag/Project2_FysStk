@@ -50,11 +50,16 @@ for i, gamma in enumerate(gammas):
             best_gamma = gamma
             best_lambda = lmbda
         print(f"l2 gamma {gamma:.0e}, lambda {lmbda:.0e}: train accuracy {train_acc:.4f}, validation accuracy {val_grid[i, j]:.4f}")
-sns.heatmap(val_grid, ax=ax, annot=True, fmt=".3f", xticklabels=[f"{l:.0e}" for l in lmbdas],
-            yticklabels=[f"{g:.0e}" for g in gammas])
-
-ax.set_xlabel(r"$\lambda$")
-ax.set_ylabel(r"$\gamma$")
+sns.heatmap(val_grid, ax=ax, annot=True, fmt=".3f", annot_kws={"size": 6},
+            xticklabels=[f"$10^{{{k}}}$" for k in range(-6, 0)],
+            yticklabels=["$10^{-4}$", "", "$10^{-3}$", "", "$10^{-2}$"],      # rows in between are 3.2 times larger
+            cbar_kws={"label": "Validation accuracy"})
+i_best, j_best = np.unravel_index(np.argmax(val_grid), val_grid.shape)
+ax.add_patch(plt.Rectangle((j_best, i_best), 1, 1, fill=False, ec="cyan", lw=1.6))
+ax.set_xlabel(r"Penalty $\lambda$")
+ax.set_ylabel(r"Learning rate $\gamma$")
+ax.tick_params(length=0)
+ax.tick_params(axis="y", labelrotation=0)
 save_fig(fig, "fashion_gamma_lambda")
 
 print(f"best gamma {best_gamma:.0e}, lambda {best_lambda:.0e}, validation accuracy {best_acc:.4f}")

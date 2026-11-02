@@ -37,10 +37,10 @@ for label, norm, lmbda, color in runs:
               method="adam", gamma=3e-3, epochs=1000, batch_size=16)  # gamma from the CV minimum
     W = np.abs(np.concatenate([W.ravel() for W, b in net.layers]))
     print(f"{label}: share of |w| < 1e-3: {np.mean(W < 1e-3):.2f}")
-    ax.semilogy(np.sort(W)[::-1] + 1e-12, color=color, label=label)
+    ax.semilogy(np.sort(W)[::-1] + 1e-12, color=color, label=label.capitalize())
 
-ax.set_xlabel("Weight, sorted by size")
+ax.set_xlabel("Rank of the weight (largest first)")
 ax.set_ylabel(r"$|w|$")
 ax.set_ylim(1e-6, 1e1)
-ax.legend()
+ax.legend(frameon=False)
 save_fig(fig, "weights_l1_l2")
