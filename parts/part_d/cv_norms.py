@@ -1,6 +1,6 @@
 """
 5-fold cross-validation over learning rate and lambda for L1 and L2 penalties,
-with the one-standard-error rule and a comparison with Ridge and Lasso.
+marking the cells within one standard error of the minimum, and a comparison with Ridge and Lasso.
 
 LLM-assisted
 ------------
@@ -76,18 +76,16 @@ for norm, ax in zip(["l2", "l1"], axes):
 
     i_best = np.unravel_index(np.argmin(cv_mse), cv_mse.shape)
     within = cv_mse <= cv_mse[i_best] + se[i_best]
-    j_one_se = max(j for i, j in zip(*np.where(within)))
-    i_one_se = min(i for i, j in zip(*np.where(within)) if j == j_one_se)
     test_mse = mean_squared_error(y_test, search.best_estimator_.predict(X_test))
     print(f"{norm}: minimum gamma {gammas[i_best[0]]}, lambda {lmbdas[i_best[1]]}: CV MSE {cv_mse[i_best]:.4f} +/- {se[i_best]:.4f}; "
-          f"one-s.e. rule gamma {gammas[i_one_se]}, lambda {lmbdas[j_one_se]}; test MSE {test_mse:.4f}")
+          f"test MSE {test_mse:.4f}")
 
     sns.heatmap(cv_mse, ax=ax, annot=True, fmt=".3f", annot_kws={"size": 6},
                 xticklabels=[f"{l:g}" for l in lmbdas], yticklabels=[f"{g:g}" for g in gammas],
                 norm=LogNorm(vmin=0.01, vmax=0.2), cbar=(ax is axes[-1]))
     for i, j in zip(*np.where(within)):
         ax.add_patch(plt.Rectangle((j, i), 1, 1, fill=False, ec="white", lw=1.2))
-    ax.plot(j_one_se + 0.5, i_one_se + 0.5, "o", mfc="none", mec="cyan", mew=1.5, ms=14)
+    ax.plot(i_best[1] + 0.5, i_best[0] + 0.5, "o", mfc="none", mec="cyan", mew=1.5, ms=14)
     ax.set_title(norm.upper())
     ax.set_xlabel(r"$\lambda$")
     ax.tick_params(axis="y", labelrotation=0)
