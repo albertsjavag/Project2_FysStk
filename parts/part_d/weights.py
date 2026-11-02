@@ -34,7 +34,7 @@ fig, ax = plt.subplots()
 for label, norm, lmbda, color in runs:
     net = NeuralNetwork(1, sizes, funcs, ders, mse, mse_der, lmbda=lmbda, norm=norm)
     net.train(x_train.reshape(-1, 1), y_train.reshape(-1, 1),
-              method="adam", gamma=1e-2, epochs=1000, batch_size=16)
+              method="adam", gamma=3e-3, epochs=1000, batch_size=16)  # gamma from the CV minimum
     W = np.abs(np.concatenate([W.ravel() for W, b in net.layers]))
     print(f"{label}: share of |w| < 1e-3: {np.mean(W < 1e-3):.2f}")
     ax.semilogy(np.sort(W)[::-1] + 1e-12, color=color, label=label)
