@@ -29,6 +29,7 @@ parts/        one script per analysis, part b to e
 tests/        unit tests (pytest)
 figures/      all figures in the report (PNG)
 outputs/      the printed output of every script
+run_all.ipynb runs every script and the tests, and shows the figures
 LLM_usage.md  declaration of LLM use, file by file
 ```
 
@@ -44,14 +45,24 @@ LLM_usage.md  declaration of LLM use, file by file
 
 ## Running
 
-Every script is run from the repository root as a module, and its output is saved
-in `outputs/` with the same name, for example
+**Everything at once:** run all cells in `run_all.ipynb`. It runs every script below in order, saves the printed output in
+`outputs/`, shows each figure, and runs the tests at the end. Parts b–d take about
+3 minutes and part e about 25 minutes. All random numbers use the seed 2026, so
+afterwards
+
+```bash
+git diff outputs/
+```
+
+should show no changes.
+
+**One script at a time:** every script is run from the repository root as a module,
+and its output is saved in `outputs/` with the same name, for example
 
 ```bash
 python -m parts.part_b.nn_vs_ols > outputs/parts.part_b.nn_vs_ols.txt
 ```
 
-All random numbers use the seed 2026.
 
 | Script | What it does | Figure |
 |---|---|---|
@@ -68,8 +79,8 @@ All random numbers use the seed 2026.
 | `parts/part_e/examples.py` | One training image of each class | `fashion_examples.png` |
 | `parts/part_e/logreg.py` | Logistic regression (no hidden layers) for several learning rates | – |
 | `parts/part_e/hyperparameters.py` | Validation accuracy against learning rate and L2 penalty, one hidden layer | `fashion_gamma_lambda.png` |
-| `parts/part_e/architecture.py` | Validation accuracy for three activations against the number of layers and nodes | `Fashion_architecture.png` |
-| `parts/part_e/best_model.py` | Logistic regression and the best network on the test set: accuracy, parameters, confusion matrices, precision, recall and F1, and misclassified images | `fashion_confusion.png`, `fashion_misclassified.png` |
+| `parts/part_e/architecture.py` | Validation accuracy for three activations against the number of layers and nodes | `fashion_architecture.png` |
+| `parts/part_e/best_model.py` | Logistic regression and the best network on the test set: accuracy, parameters, the confusion matrix of the network, precision, recall and F1, and misclassified images | `fashion_confusion.png`, `fashion_misclassified.png` |
 | `parts/part_e/learning_curves.py` | Training cross entropy against epoch for logistic regression and the best network | `fashion_learning_curves.png` |
 | `parts/part_e/sklearn_compare.py` | Our logistic regression and network against scikit-learn's `LogisticRegression` and `MLPClassifier` | – |
 
