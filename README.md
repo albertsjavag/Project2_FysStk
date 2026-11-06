@@ -1,6 +1,10 @@
 # Project 2, FYS-STK3155/FYS4155: a feed-forward neural network from scratch
 
-**Authors:** Albert Sjåvåg and Teodor Aursnes (University of Oslo, autumn 2026)
+**Authors:** 
+ - Albert Sjåvåg
+ - Teodor Aursnes 
+ - Jørgen S. Florholmen
+ (University of Oslo, autumn 2026)
 
 We write our own feed-forward neural network with backpropagation and use it for
 regression of the one-dimensional Runge function, comparing with OLS, Ridge and
