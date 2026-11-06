@@ -50,8 +50,7 @@ LLM_usage.md  declaration of LLM use, file by file
 ## Running
 
 **Everything at once:** run all cells in `run_all.ipynb`. It runs every script below in order, saves the printed output in
-`outputs/`, shows each figure, and runs the tests at the end. Parts b–d take about
-3 minutes and part e about 25 minutes. All random numbers use the seed 2026, so
+`outputs/`, shows each figure, and runs the tests at the end. All random numbers use the seed 2026, so
 afterwards
 
 ```bash
@@ -59,6 +58,8 @@ git diff outputs/
 ```
 
 should show no changes.
+
+The notebook is saved with all output and figures, so it can be read without running it, but feel free to run it yourself.
 
 **One script at a time:** every script is run from the repository root as a module,
 and its output is saved in `outputs/` with the same name, for example
