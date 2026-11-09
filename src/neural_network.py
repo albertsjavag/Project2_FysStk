@@ -45,6 +45,7 @@ class NeuralNetwork:
     def _create_layers(self):
         layers = []
         i_size = self.network_input_size                     
+        # He init for ReLU-type layers, otherwise scale 1/n_in
         for layer_output_size, activation_func in zip(self.layer_output_sizes, self.activation_funcs):
             if activation_func in (relu, leaky_relu):
                 scale = np.sqrt(2/i_size)
@@ -58,7 +59,7 @@ class NeuralNetwork:
 
     def predict(self, inputs):
         a = inputs
-        for (W, b), activation_func in zip(self.layers, self.activation_funcs):
+        for (W, b), activation_func in zip(self.layers, self.activation_funcs):  # z = aW + b, a = f(z)
             a = activation_func(a @ W + b)
         return a
 
@@ -79,11 +80,11 @@ class NeuralNetwork:
         layer_inputs, zs, predict = self._feed_forward_saver(inputs)
         layer_grads = [() for layer in self.layers]
         n = inputs.shape[0]
-        for i in reversed(range(len(self.layers))):
+        for i in reversed(range(len(self.layers))):  # backpropagation, last layer first
             layer_input, z, activation_der = layer_inputs[i], zs[i], self.activation_ders[i]
             if i == len(self.layers) - 1:
                 if self.activation_funcs[-1] is softmax:
-                    dC_dz = (predict - targets) / n
+                    dC_dz = (predict - targets) / n  # softmax + cross entropy simplifies to (a - y)/n
                 else: 
                     dC_da = self.cost_der(predict, targets)
                     dC_dz = dC_da *activation_der(z)
@@ -97,7 +98,7 @@ class NeuralNetwork:
 
             W_i, b_i = self.layers[i]    
 
-            if self.norm == "l2":                                                    
+            if self.norm == "l2":    # penalty only on the weights, not the biases                      
                 dC_dW = dC_dW + 2.0 * self.lmbda * W_i                          
             elif self.norm == "l1":                                                   
                 dC_dW = dC_dW + self.lmbda * np.sign(W_i)              
@@ -129,7 +130,7 @@ class NeuralNetwork:
             history.append(float(self.cost(inputs, targets)))
         return history
 
-
+    # only used in the tests, to compare our gradients with jax.grad
     def jax_compliant_predict(self, layers, inputs, activation_funcs):
         a = inputs
         for (W, b), activation_func in zip(layers, activation_funcs):
