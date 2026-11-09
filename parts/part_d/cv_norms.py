@@ -29,7 +29,8 @@ from src.data import generate_data, design_matrix, scale_matrix, center_y, split
 from src.models import ridge, lasso_fit
 
 
-class NeuralNetRegressor(BaseEstimator, RegressorMixin):
+# wrapper so GridSearchCV can train our own network
+class NeuralNetRegressor(BaseEstimator, RegressorMixin): 
     def __init__(self, hidden=(25, 25), activation="sigmoid", gamma=0.01, lmbd=0.0, norm="l2",
                  epochs=1000, batch_size=16, seed=2026):
         self.hidden = hidden
@@ -66,16 +67,17 @@ lmbdas = [0.0, 1e-5, 1e-4, 1e-3, 1e-2]
 
 fig, axes = plt.subplots(2, 1, figsize=(3.4, 4.2), sharex=True)
 for norm, ax, title in zip(["l2", "l1"], axes, [r"$L_2$ penalty", r"$L_1$ penalty"]):
-    net = make_pipeline(StandardScaler(), NeuralNetRegressor(norm=norm))
+    net = make_pipeline(StandardScaler(), NeuralNetRegressor(norm=norm))  # scaler is refitted in each fold, so the validation fold stays unseen
     param_grid = {"neuralnetregressor__gamma": gammas, "neuralnetregressor__lmbd": lmbdas}
     search = GridSearchCV(net, param_grid, cv=cv, scoring="neg_mean_squared_error")
     search.fit(X_train, y_train)
     results = search.cv_results_
     cv_mse = -results["mean_test_score"].reshape(5, 5)
-    se = results["std_test_score"].reshape(5, 5) / np.sqrt(cv.get_n_splits() - 1)
+    #sklearn's std uses 1/K, so dividing by sqrt(K-1) gives s/sqrt(K)
+    se = results["std_test_score"].reshape(5, 5) / np.sqrt(cv.get_n_splits() - 1) 
 
     i_best = np.unravel_index(np.argmin(cv_mse), cv_mse.shape)
-    within = cv_mse <= cv_mse[i_best] + se[i_best]
+    within = cv_mse <= cv_mse[i_best] + se[i_best]   # white boxe from plots: within one standard error of the minimum
     test_mse = mean_squared_error(y_test, search.best_estimator_.predict(X_test))
     print(f"{norm}: minimum gamma {gammas[i_best[0]]}, lambda {lmbdas[i_best[1]]}: CV MSE {cv_mse[i_best]:.4f} +/- {se[i_best]:.4f}; "
           f"test MSE {test_mse:.4f}")
