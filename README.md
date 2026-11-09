@@ -4,6 +4,7 @@
  - Albert Sjåvåg
  - Teodor Aursnes 
  - Jørgen S. Florholmen
+ 
  (University of Oslo, autumn 2026)
 
 We write our own feed-forward neural network with backpropagation and use it for
