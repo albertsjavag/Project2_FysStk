@@ -21,7 +21,7 @@ from src.costs import cross_entropy
 X_train, y_train, X_test, y_test = load_fashion_mnist()
 X_train, X_val, y_train, y_val = split_data(X_train, y_train)
 
-T = np.eye(10)[y_train]
+T = np.eye(10)[y_train] # one-hot targets, e.g. class 3 -> [0,0,0,1,0,...]
 
 gammas = np.logspace(-4, -1, 4)
 
@@ -29,9 +29,9 @@ best_acc = 0
 best_gamma = None
 
 for gamma in gammas: 
-    logreg = NeuralNetwork(784, [10], [softmax], [None], cross_entropy, None)
+    logreg = NeuralNetwork(784, [10], [softmax], [None], cross_entropy, None)  # logistic regression is just our network with no hidden layer
     history = logreg.train(X_train, T, method="adam", gamma=gamma, epochs=10, batch_size=100)
-    val_acc = np.mean(np.argmax(logreg.predict(X_val), axis=1) == y_val)
+    val_acc = np.mean(np.argmax(logreg.predict(X_val), axis=1) == y_val)  # predicted class = the one with highest probability
     train_acc = np.mean(np.argmax(logreg.predict(X_train), axis=1) == y_train) 
     if val_acc > best_acc:
         best_acc = val_acc
