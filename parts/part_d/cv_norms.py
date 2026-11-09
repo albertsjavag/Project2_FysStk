@@ -73,11 +73,11 @@ for norm, ax, title in zip(["l2", "l1"], axes, [r"$L_2$ penalty", r"$L_1$ penalt
     search.fit(X_train, y_train)
     results = search.cv_results_
     cv_mse = -results["mean_test_score"].reshape(5, 5)
-    #sklearn's std uses 1/K, so dividing by sqrt(K-1) gives s/sqrt(K)
+    # sklearn's std uses 1/K, so dividing by sqrt(K-1) gives s/sqrt(K)
     se = results["std_test_score"].reshape(5, 5) / np.sqrt(cv.get_n_splits() - 1) 
 
     i_best = np.unravel_index(np.argmin(cv_mse), cv_mse.shape)
-    within = cv_mse <= cv_mse[i_best] + se[i_best]   # white boxe from plots: within one standard error of the minimum
+    within = cv_mse <= cv_mse[i_best] + se[i_best]   # white boxes from plots: within one standard error of the minimum
     test_mse = mean_squared_error(y_test, search.best_estimator_.predict(X_test))
     print(f"{norm}: minimum gamma {gammas[i_best[0]]}, lambda {lmbdas[i_best[1]]}: CV MSE {cv_mse[i_best]:.4f} +/- {se[i_best]:.4f}; "
           f"test MSE {test_mse:.4f}")
